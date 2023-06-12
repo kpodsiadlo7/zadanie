@@ -23,7 +23,7 @@ public class Wall implements Structure, CompositeBlock {
     @Override
     public List<Block> findBlocksByMaterial(String material) {
         blocks = getBlocks();
-        if (validateData(blocks) || blocks.isEmpty()){
+        if (validateData(blocks)){
             return new ArrayList<>();
         }
         return blocks.stream().filter(b -> b.getMaterial().equals(material)).toList();
@@ -53,6 +53,6 @@ public class Wall implements Structure, CompositeBlock {
     }
 
     private boolean validateData(List<Block> inputList){
-        return inputList == null;
+        return inputList == null || inputList.isEmpty();
     }
 }
