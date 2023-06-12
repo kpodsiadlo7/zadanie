@@ -13,34 +13,18 @@ public class Wall implements Structure, CompositeBlock {
 
     @Override
     public Optional<Block> findBlockByColor(String color) {
-        if (validateInputStringIsNotNull(color)){
-            blocks = getBlocks();
-            if (validateInputListIsNotNullOrEmpty(blocks)) {
-                return Optional.empty();
-            }
-            throw new IllegalArgumentException("Color is null");
-        }
-        return blocks.stream().filter(b -> b.getColor().equals(color)).findFirst();
+        return getBlockByColor(color);
     }
 
     @Override
     public List<Block> findBlocksByMaterial(String material) {
-        if (validateInputStringIsNotNull(material)){
-            blocks = getBlocks();
-            if (validateInputListIsNotNullOrEmpty(blocks)){
-                return new ArrayList<>();
-            }
-            throw new IllegalArgumentException("Material is null");
-        }
-        return blocks.stream().filter(b -> b.getMaterial().equals(material)).toList();
+        return getListOfBlocksByMaterial(material);
     }
 
+    //Returns count of all elements in list of blocks
     @Override
     public int count() {
-        blocks = getBlocks();
-        if (validateInputListIsNotNullOrEmpty(blocks))
-            return 0;
-        return blocks.size();
+        return getCountOfAllElements();
     }
 
     @Override
@@ -56,6 +40,35 @@ public class Wall implements Structure, CompositeBlock {
     @Override
     public List<Block> getBlocks() {
         return null;
+    }
+
+    private Optional<Block> getBlockByColor(String color){
+        if (validateInputStringIsNotNull(color)){
+            blocks = getBlocks();
+            if (validateInputListIsNotNullOrEmpty(blocks)) {
+                return Optional.empty();
+            }
+            throw new IllegalArgumentException("Color is null");
+        }
+        return blocks.stream().filter(b -> b.getColor().equals(color)).findFirst();
+    }
+
+    private List<Block> getListOfBlocksByMaterial(String material){
+        if (validateInputStringIsNotNull(material)){
+            blocks = getBlocks();
+            if (validateInputListIsNotNullOrEmpty(blocks)){
+                return new ArrayList<>();
+            }
+            throw new IllegalArgumentException("Material is null");
+        }
+        return blocks.stream().filter(b -> b.getMaterial().equals(material)).toList();
+    }
+
+    private int getCountOfAllElements(){
+        blocks = getBlocks();
+        if (validateInputListIsNotNullOrEmpty(blocks))
+            return 0;
+        return blocks.size();
     }
 
     private boolean validateInputStringIsNotNull(String inputData){
