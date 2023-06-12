@@ -13,18 +13,24 @@ public class Wall implements Structure, CompositeBlock {
 
     @Override
     public Optional<Block> findBlockByColor(String color) {
-        blocks = getBlocks();
-        if (validateData(blocks)) {
-            return Optional.empty();
+        if (validateInputStringIsNotNull(color)){
+            blocks = getBlocks();
+            if (validateInputListIsNotNullOrEmpty(blocks)) {
+                return Optional.empty();
+            }
+            throw new IllegalArgumentException("Color is null");
         }
         return blocks.stream().filter(b -> b.getColor().equals(color)).findFirst();
     }
 
     @Override
     public List<Block> findBlocksByMaterial(String material) {
-        blocks = getBlocks();
-        if (validateData(blocks)){
-            return new ArrayList<>();
+        if (validateInputStringIsNotNull(material)){
+            blocks = getBlocks();
+            if (validateInputListIsNotNullOrEmpty(blocks)){
+                return new ArrayList<>();
+            }
+            throw new IllegalArgumentException("Material is null");
         }
         return blocks.stream().filter(b -> b.getMaterial().equals(material)).toList();
     }
@@ -32,7 +38,7 @@ public class Wall implements Structure, CompositeBlock {
     @Override
     public int count() {
         blocks = getBlocks();
-        if (validateData(blocks))
+        if (validateInputListIsNotNullOrEmpty(blocks))
             return 0;
         return blocks.size();
     }
@@ -52,7 +58,11 @@ public class Wall implements Structure, CompositeBlock {
         return null;
     }
 
-    private boolean validateData(List<Block> inputList){
+    private boolean validateInputStringIsNotNull(String inputData){
+        return inputData == null;
+    }
+
+    private boolean validateInputListIsNotNullOrEmpty(List<Block> inputList){
         return inputList == null || inputList.isEmpty();
     }
 }
