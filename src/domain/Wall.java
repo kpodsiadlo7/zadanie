@@ -52,7 +52,7 @@ public class Wall implements Structure, CompositeBlock {
         return null;
     }
 
-    boolean validateData(List<Block> inputList){
+    private boolean validateData(List<Block> inputList){
         return inputList == null;
     }
 }
